@@ -1,0 +1,4 @@
+com\Test.class
+com\itmuch\cloud\entity\User.class
+com\itmuch\cloud\mapper\UserMapper.class
+com\CommonApplication.class

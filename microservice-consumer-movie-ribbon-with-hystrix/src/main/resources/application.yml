@@ -1,0 +1,19 @@
+server:
+  port: 8011
+spring:
+  application:
+    name: microservice-consumer-movie-ribbon-with-hystrix
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:8761/eureka/,http://peer2:8762/eureka/
+  healthcheck:
+    enable: true
+  instance:
+    hostname: ribbon
+    preferIpAddress: false
+    # 此处，preferIpAddress不设置或者设为false，不能设为true，否则影响turbine的测试。
+    #turbine存在的问题：eureka.instance.hostname一致时只能检测到一个节点，会造成turbine数据不完整
+    health-check-url: http://movie:8011/info  # 健康检查的URL
+    lease-renewal-interval-in-seconds: 10   # 续约更新时间间隔（默认30秒）
+    lease-expiration-duration-in-seconds: 30  # 续约到期时间（默认90秒）

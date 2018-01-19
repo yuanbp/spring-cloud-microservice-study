@@ -1,0 +1,72 @@
+spring:
+  profiles:
+    active: dev
+---
+spring:
+  profiles: dev
+  application:
+    name: dev
+server:
+  port: 8763 # 指定该Eureka实例的端口
+eureka:
+  server:
+    enable-self-preservation: false			# 设为false，关闭自我保护
+    eviction-interval-timer-in-ms: 5000     # 清理间隔（单位毫秒，默认是60*1000）
+  instance:
+    hostname: discovery # 指定该Eureka实例的主机名
+#    health-check-url: http://discovery:8763/info  # 健康检查的URL
+#    lease-renewal-interval-in-seconds: 10   # 续约更新时间间隔（默认30秒）
+#    lease-expiration-duration-in-seconds: 30  # 续约到期时间（默认90秒）
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+# 参考文档：http://projects.spring.io/spring-cloud/docs/1.0.3/spring-cloud.html#_standalone_mode
+# 参考文档：http://my.oschina.net/buwei/blog/618756
+---
+spring:
+  profiles: peer1 # 指定profile=peer1
+  application:
+      name: eureka-server
+server:
+  port: 8761
+eureka:
+  server:
+    enable-self-preservation: false			# 设为false，关闭自我保护
+    eviction-interval-timer-in-ms: 5000     # 清理间隔（单位毫秒，默认是60*1000）
+  instance:
+    hostname: peer1 # 指定当profile=peer1时，主机名
+    health-check-url: http://peer1:8761/info  # 健康检查的URL
+    lease-renewal-interval-in-seconds: 10   # 续约更新时间间隔（默认30秒）
+    lease-expiration-duration-in-seconds: 30  # 续约到期时间（默认90秒）
+  client:
+    registerWithEureka: true  #是否将eureka自身作为应用注册到eureka注册中心
+    fetchRegistry: true       #为true时，可以启动，但报异常：Cannot execute request on any known server
+    serviceUrl:
+      defaultZone: http://peer2:8762/eureka/ # 将自己注册到peer2这个Eureka上面去
+    healthcheck:
+      enable: true
+---
+spring:
+  profiles: peer2
+  application:
+    name: eureka-server
+server:
+  port: 8762
+eureka:
+  server:
+    enable-self-preservation: false			# 设为false，关闭自我保护
+    eviction-interval-timer-in-ms: 5000     # 清理间隔（单位毫秒，默认是60*1000）
+  instance:
+    hostname: peer2
+    health-check-url: http://peer2:8762/info  # 健康检查的URL
+    lease-renewal-interval-in-seconds: 10   # 续约更新时间间隔（默认30秒）
+    lease-expiration-duration-in-seconds: 30  # 续约到期时间（默认90秒）
+  client:
+    registerWithEureka: true  #是否将eureka自身作为应用注册到eureka注册中心
+    fetchRegistry: true       #为true时，可以启动，但报异常：Cannot execute request on any known server
+    serviceUrl:
+      defaultZone: http://peer1:8761/eureka/
+  healthcheck:
+    enable: true

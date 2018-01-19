@@ -1,0 +1,3 @@
+com\itmuch\cloud\service\IUserFeighnClient.class
+com\itmuch\cloud\controller\FeignController.class
+com\MovieFeignApplication.class

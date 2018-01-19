@@ -1,0 +1,4 @@
+com\itmuch\cloud\controller\FeignHystrixController.class
+com\itmuch\cloud\service\IUserFeignHystrixClient.class
+com\itmuch\cloud\service\IUserFeignHystrixClient$HystrixClientFallback.class
+com\MovieFeignHystrixApplication.class

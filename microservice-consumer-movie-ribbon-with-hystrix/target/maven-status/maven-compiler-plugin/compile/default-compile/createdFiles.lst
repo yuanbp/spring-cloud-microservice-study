@@ -1,0 +1,3 @@
+com\MovieRibbonHystrixApplication.class
+com\itmuch\cloud\controller\RibbonHystrixController.class
+com\itmuch\cloud\service\RibbonHystrixService.class

@@ -1,0 +1,3 @@
+com\MovieRibbonApplication.class
+com\itmuch\cloud\controller\RibbonController.class
+com\itmuch\cloud\service\RibbonService.class

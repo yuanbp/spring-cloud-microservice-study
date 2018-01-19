@@ -1,0 +1,15 @@
+启动
+java -jar eureka-server-1.0.0.jar --spring.profiles.active = peerl
+java -jar eureka-server-1.0.0.jar --spring.profiles.active = peer2
+
+地址栏输入 http://peer1:1111
+发现 peer2 为 unavailable-replicas
+
+启动服务时虽然采用  --spring.profiles.active = peerl 指定了配置文件，但还是会从 application.properties 中取值，将 application.properties 的
+
+eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false
+
+注释掉或者 在 application-peer1.properties 与 application-peer2.properties 中显示 指定 这两个属性值为 true 即可。
+另 application-peer1.properties 与 application-peer2.properties  的 spring.application.name 属性不一致也会有此问题。
+spring.application.name必须一致
